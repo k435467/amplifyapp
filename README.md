@@ -1,70 +1,266 @@
-# Getting Started with Create React App
+# My Notes
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Followed the [tutorial](https://aws.amazon.com/getting-started/hands-on/build-react-app-amplify-graphql/) to build a simple web application using AWS Amplify.
 
-## Available Scripts
+- [My Notes](#my-notes)
+  - [Build a Full-Stack React Application](#build-a-full-stack-react-application)
+    - [Deploy and Host a React App](#deploy-and-host-a-react-app)
+      - [Create a new React application](#create-a-new-react-application)
+      - [Initialize GitHub repository](#initialize-github-repository)
+      - [Deploy the app with AWS Amplify](#deploy-the-app-with-aws-amplify)
+    - [Initialize a Local App](#initialize-a-local-app)
+      - [Install the Amplify CLI](#install-the-amplify-cli)
+      - [Configure the Amplify CLI](#configure-the-amplify-cli)
+      - [Initialze the Amplify app locally](#initialze-the-amplify-app-locally)
+    - [Add Authentication](#add-authentication)
+      - [Install the Amplify libraries](#install-the-amplify-libraries)
+      - [Create the authentication service](#create-the-authentication-service)
+      - [Deploy the authentication service](#deploy-the-authentication-service)
+      - [Configure the React project with Amplify resources](#configure-the-react-project-with-amplify-resources)
+      - [Add the authentication flow in App.js](#add-the-authentication-flow-in-appjs)
+      - [Set up CI/CD of the front end and backend](#set-up-cicd-of-the-front-end-and-backend)
+      - [Deploy the changes to the live environment](#deploy-the-changes-to-the-live-environment)
+    - [Add a GraphQL API and Database](#add-a-graphql-api-and-database)
+      - [Create a GraphQL API and database](#create-a-graphql-api-and-database)
+      - [Deploy the API](#deploy-the-api)
+      - [Write front-end code to interact with the API](#write-front-end-code-to-interact-with-the-api)
+    - [Add the Ability to Store Images](#add-the-ability-to-store-images)
+      - [Create the storage service](#create-the-storage-service)
+      - [Update the GraphQL schema](#update-the-graphql-schema)
+      - [Deploy storage service and API updates](#deploy-storage-service-and-api-updates)
+      - [Update the React app](#update-the-react-app)
+    - [Deleing the resources](#deleing-the-resources)
+      - [Removing individual services](#removing-individual-services)
+      - [Deleing the entire project](#deleing-the-entire-project)
 
-In the project directory, you can run:
+## Build a Full-Stack React Application
 
-### `yarn start`
+- Hosting
+- Authentication
+- Database and Storage
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Deploy and Host a React App
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Create a React app and deploy and host through AWS Amplify.
 
-### `yarn test`
+- Create a **React** application
+- Initialze a **GitHub** repository
+- Deploy the app with AWS Amplify
+- Implement code changes and redeploy the app
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Create a new React application
 
-### `yarn build`
+```shell
+npx create react-app amplifyapp
+cd amplifyapp
+npm start
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### Initialize GitHub repository
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Create a new GitHub repo
+- Initialze git and push the app
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  ```shell
+  git init
+  git remote add origin git@github.com:username/reponame.git
+  git add .
+  git commit -m "Initial commit"
+  git push origin main
+  ```
 
-### `yarn eject`
+#### Deploy the app with AWS Amplify
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- In the AWS Amplify service console, select "Get Started" under **Delivery** (**Host web app**).
+- Select **GitHub** as the repo service.
+- Authenticate with GitHub and Choose the **main** brance that created earlier.
+- Accept the default build settings.
+- Review the final details and select Save and Deploy.
+- AWS Amplify will now build the source code and deploy at a URL. Once the build completes, to see the web app up and running.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Initialize a Local App
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- Install and configure the **Amplify CLI**
+- Initiailze the Amplify app
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+#### Install the Amplify CLI
 
-## Learn More
+```shell
+npm install -g @aws-amplify/cli
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### Configure the Amplify CLI
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```shell
+amplify configure
+```
 
-### Code Splitting
+- This will open up the AWS console. Once logged into the console, we can jump back to the command line.
+- Specify the **AWS region**.
+- Specify the **username** of the new IAM user.
+  - This will open up the IAM dashboard.
+  - Set **permissions**: Attach existing policies directly: check **AdministratorAccess**.
+  - Keep the **Access key ID** and **Secret access key**, then back to command line and paste them.
+- Left the "Profile Name" to default.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+#### Initialze the Amplify app locally
 
-### Analyzing the Bundle Size
+- In the Amplify console, click on **Backend environments**.
+- Copy the amplify init command: `amplify pull --appId <appId> --envName staging`
+- Initialze the Amplify project locally with the command.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Add Authentication
 
-### Making a Progressive Web App
+- Install **Amplify libraries**
+- Create and deploy an **authentication** service
+- Configure the React app to include authentication
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+#### Install the Amplify libraries
 
-### Advanced Configuration
+```shell
+npm install aws-amplify @aws-amplify/ui-react
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+#### Create the authentication service
 
-### Deployment
+```shell
+amplify add auth
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+? Default configuration
+? Username
+? No, I an done.
+```
 
-### `yarn build` fails to minify
+#### Deploy the authentication service
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```shell
+amplify push --y
+```
+
+#### Configure the React project with Amplify resources
+
+Add code in **src/index.js**. (import and config)
+
+#### Add the authentication flow in App.js
+
+Add code in **src/App.js**. (AmplifySignOut elemnt)
+
+#### Set up CI/CD of the front end and backend
+
+- AWS Amplify console > App settings > **Build settings**. Modify it to add backend section.
+- Update the front end branch to point to the backend environment. Under the branch name, choose **Edit**, and then select the **staging** backend.
+
+#### Deploy the changes to the live environment
+
+Commit and push to origin main. In case the build fails.
+
+> Error: JSONValidationError: File project: data should NOT have additional properties: 'graphqltransformer'.
+
+Open the **Build settings** of the app in Amplify console. Build settings > Build image settings > Edit > **Package**. Specify the **version** of Amplify CLI installed (e.g. 4.41.1).
+
+> Error: do not have a role.
+
+Open the IAM > Access management > Roles > Create role > Choose a use case > select Amplify. Go back to AWS Amplify console. Select the app > App settings > General > app details > Edit > Set the **Service role**.
+
+### Add a GraphQL API and Database
+
+- Create and deploy a **GraphQL API**
+- Write front-end code to interact with the API
+
+#### Create a GraphQL API and database
+
+```shell
+amplify add api
+
+? GraphQL
+? notesapp
+? API Key
+? demo
+? 7
+? No, I am done.
+? No
+? Yes
+? Single object with fields
+? Yes
+```
+
+Open the GraphQL schema in text editor: **amplify/backend/api/myapi/schema.graphql**. Update the file.
+
+#### Deploy the API
+
+```shell
+amplify push --y
+```
+
+To view the GraphQL API.
+
+```shell
+amplify console api
+
+> Choose GraphQL
+```
+
+#### Write front-end code to interact with the API
+
+Add code in **src/App.js**.
+
+- fetchNotes
+- createNote
+- deleteNote
+
+### Add the Ability to Store Images
+
+- Create a **storage service**
+- Update a GraphQL schema
+- Update your React app
+
+#### Create the storage service
+
+```shell
+amplify add storage
+
+? Content
+? imagestorage
+? <your-unique-bucket-name>
+? Auth users only
+? create, read, update, delete
+? N
+```
+
+#### Update the GraphQL schema
+
+Update **amplify/backend/api/notesapp/schema.graphql**.
+
+#### Deploy storage service and API updates
+
+```shell
+amplify push --y
+```
+
+#### Update the React app
+
+Add code to use storage.
+
+### Deleing the resources
+
+#### Removing individual services
+
+```shell
+amplify remove auth
+
+? <your-service-name>
+```
+
+Then push.
+
+```shell
+amplify push
+```
+
+#### Deleing the entire project
+
+To delete the project and the associated resources.
+
+```shell
+amplify delete
+```
