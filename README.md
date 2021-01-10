@@ -1,45 +1,38 @@
-# My Notes
+# My Notes: Front-End Developer
 
-Followed the [tutorial](https://aws.amazon.com/getting-started/hands-on/build-react-app-amplify-graphql/) to build a simple web application using AWS Amplify.
+Followed the [tutorial](https://aws.amazon.com/getting-started/hands-on/build-react-app-amplify-graphql/) to build a simple web application using AWS Amplify. Build a Full-Stack React Application. **Hosting**, **Authentication**, **Database and Storage**.
 
-- [My Notes](#my-notes)
-  - [Build a Full-Stack React Application](#build-a-full-stack-react-application)
-    - [Deploy and Host a React App](#deploy-and-host-a-react-app)
-      - [Create a new React application](#create-a-new-react-application)
-      - [Initialize GitHub repository](#initialize-github-repository)
-      - [Deploy the app with AWS Amplify](#deploy-the-app-with-aws-amplify)
-    - [Initialize a Local App](#initialize-a-local-app)
-      - [Install the Amplify CLI](#install-the-amplify-cli)
-      - [Configure the Amplify CLI](#configure-the-amplify-cli)
-      - [Initialze the Amplify app locally](#initialze-the-amplify-app-locally)
-    - [Add Authentication](#add-authentication)
-      - [Install the Amplify libraries](#install-the-amplify-libraries)
-      - [Create the authentication service](#create-the-authentication-service)
-      - [Deploy the authentication service](#deploy-the-authentication-service)
-      - [Configure the React project with Amplify resources](#configure-the-react-project-with-amplify-resources)
-      - [Add the authentication flow in App.js](#add-the-authentication-flow-in-appjs)
-      - [Set up CI/CD of the front end and backend](#set-up-cicd-of-the-front-end-and-backend)
-      - [Deploy the changes to the live environment](#deploy-the-changes-to-the-live-environment)
-    - [Add a GraphQL API and Database](#add-a-graphql-api-and-database)
-      - [Create a GraphQL API and database](#create-a-graphql-api-and-database)
-      - [Deploy the API](#deploy-the-api)
-      - [Write front-end code to interact with the API](#write-front-end-code-to-interact-with-the-api)
-    - [Add the Ability to Store Images](#add-the-ability-to-store-images)
-      - [Create the storage service](#create-the-storage-service)
-      - [Update the GraphQL schema](#update-the-graphql-schema)
-      - [Deploy storage service and API updates](#deploy-storage-service-and-api-updates)
-      - [Update the React app](#update-the-react-app)
-    - [Deleing the resources](#deleing-the-resources)
-      - [Removing individual services](#removing-individual-services)
-      - [Deleing the entire project](#deleing-the-entire-project)
+- [My Notes: Front-End Developer](#my-notes-front-end-developer)
+  - [Deploy and Host a React App](#deploy-and-host-a-react-app)
+    - [Create a new React application](#create-a-new-react-application)
+    - [Initialize GitHub repository](#initialize-github-repository)
+    - [Deploy the app with AWS Amplify](#deploy-the-app-with-aws-amplify)
+  - [Initialize a Local App](#initialize-a-local-app)
+    - [Install the Amplify CLI](#install-the-amplify-cli)
+    - [Configure the Amplify CLI](#configure-the-amplify-cli)
+    - [Initialze the Amplify app locally](#initialze-the-amplify-app-locally)
+  - [Add Authentication](#add-authentication)
+    - [Install the Amplify libraries](#install-the-amplify-libraries)
+    - [Create the authentication service](#create-the-authentication-service)
+    - [Deploy the authentication service](#deploy-the-authentication-service)
+    - [Configure the React project with Amplify resources](#configure-the-react-project-with-amplify-resources)
+    - [Add the authentication flow in App.js](#add-the-authentication-flow-in-appjs)
+    - [Set up CI/CD of the front end and backend](#set-up-cicd-of-the-front-end-and-backend)
+    - [Deploy the changes to the live environment](#deploy-the-changes-to-the-live-environment)
+  - [Add a GraphQL API and Database](#add-a-graphql-api-and-database)
+    - [Create a GraphQL API and database](#create-a-graphql-api-and-database)
+    - [Deploy the API](#deploy-the-api)
+    - [Write front-end code to interact with the API](#write-front-end-code-to-interact-with-the-api)
+  - [Add the Ability to Store Images](#add-the-ability-to-store-images)
+    - [Create the storage service](#create-the-storage-service)
+    - [Update the GraphQL schema](#update-the-graphql-schema)
+    - [Deploy storage service and API updates](#deploy-storage-service-and-api-updates)
+    - [Update the React app](#update-the-react-app)
+  - [Deleing the resources](#deleing-the-resources)
+    - [Removing individual services](#removing-individual-services)
+    - [Deleing the entire project](#deleing-the-entire-project)
 
-## Build a Full-Stack React Application
-
-- Hosting
-- Authentication
-- Database and Storage
-
-### Deploy and Host a React App
+## Deploy and Host a React App
 
 Create a React app and deploy and host through AWS Amplify.
 
@@ -48,7 +41,7 @@ Create a React app and deploy and host through AWS Amplify.
 - Deploy the app with AWS Amplify
 - Implement code changes and redeploy the app
 
-#### Create a new React application
+### Create a new React application
 
 ```shell
 npx create react-app amplifyapp
@@ -56,7 +49,7 @@ cd amplifyapp
 npm start
 ```
 
-#### Initialize GitHub repository
+### Initialize GitHub repository
 
 - Create a new GitHub repo
 - Initialze git and push the app
@@ -69,7 +62,7 @@ npm start
   git push origin main
   ```
 
-#### Deploy the app with AWS Amplify
+### Deploy the app with AWS Amplify
 
 - In the AWS Amplify service console, select "Get Started" under **Delivery** (**Host web app**).
 - Select **GitHub** as the repo service.
@@ -78,18 +71,18 @@ npm start
 - Review the final details and select Save and Deploy.
 - AWS Amplify will now build the source code and deploy at a URL. Once the build completes, to see the web app up and running.
 
-### Initialize a Local App
+## Initialize a Local App
 
 - Install and configure the **Amplify CLI**
 - Initiailze the Amplify app
 
-#### Install the Amplify CLI
+### Install the Amplify CLI
 
 ```shell
 npm install -g @aws-amplify/cli
 ```
 
-#### Configure the Amplify CLI
+### Configure the Amplify CLI
 
 ```shell
 amplify configure
@@ -103,25 +96,25 @@ amplify configure
   - Keep the **Access key ID** and **Secret access key**, then back to command line and paste them.
 - Left the "Profile Name" to default.
 
-#### Initialze the Amplify app locally
+### Initialze the Amplify app locally
 
 - In the Amplify console, click on **Backend environments**.
 - Copy the amplify init command: `amplify pull --appId <appId> --envName staging`
 - Initialze the Amplify project locally with the command.
 
-### Add Authentication
+## Add Authentication
 
 - Install **Amplify libraries**
 - Create and deploy an **authentication** service
 - Configure the React app to include authentication
 
-#### Install the Amplify libraries
+### Install the Amplify libraries
 
 ```shell
 npm install aws-amplify @aws-amplify/ui-react
 ```
 
-#### Create the authentication service
+### Create the authentication service
 
 ```shell
 amplify add auth
@@ -131,26 +124,26 @@ amplify add auth
 ? No, I an done.
 ```
 
-#### Deploy the authentication service
+### Deploy the authentication service
 
 ```shell
 amplify push --y
 ```
 
-#### Configure the React project with Amplify resources
+### Configure the React project with Amplify resources
 
 Add code in **src/index.js**. (import and config)
 
-#### Add the authentication flow in App.js
+### Add the authentication flow in App.js
 
 Add code in **src/App.js**. (AmplifySignOut elemnt)
 
-#### Set up CI/CD of the front end and backend
+### Set up CI/CD of the front end and backend
 
 - AWS Amplify console > App settings > **Build settings**. Modify it to add backend section.
 - Update the front end branch to point to the backend environment. Under the branch name, choose **Edit**, and then select the **staging** backend.
 
-#### Deploy the changes to the live environment
+### Deploy the changes to the live environment
 
 Commit and push to origin main. In case the build fails.
 
@@ -162,12 +155,12 @@ Open the **Build settings** of the app in Amplify console. Build settings > Buil
 
 Open the IAM > Access management > Roles > Create role > Choose a use case > select Amplify. Go back to AWS Amplify console. Select the app > App settings > General > app details > Edit > Set the **Service role**.
 
-### Add a GraphQL API and Database
+## Add a GraphQL API and Database
 
 - Create and deploy a **GraphQL API**
 - Write front-end code to interact with the API
 
-#### Create a GraphQL API and database
+### Create a GraphQL API and database
 
 ```shell
 amplify add api
@@ -186,7 +179,7 @@ amplify add api
 
 Open the GraphQL schema in text editor: **amplify/backend/api/myapi/schema.graphql**. Update the file.
 
-#### Deploy the API
+### Deploy the API
 
 ```shell
 amplify push --y
@@ -200,7 +193,7 @@ amplify console api
 > Choose GraphQL
 ```
 
-#### Write front-end code to interact with the API
+### Write front-end code to interact with the API
 
 Add code in **src/App.js**.
 
@@ -208,13 +201,13 @@ Add code in **src/App.js**.
 - createNote
 - deleteNote
 
-### Add the Ability to Store Images
+## Add the Ability to Store Images
 
 - Create a **storage service**
 - Update a GraphQL schema
 - Update your React app
 
-#### Create the storage service
+### Create the storage service
 
 ```shell
 amplify add storage
@@ -227,23 +220,23 @@ amplify add storage
 ? N
 ```
 
-#### Update the GraphQL schema
+### Update the GraphQL schema
 
 Update **amplify/backend/api/notesapp/schema.graphql**.
 
-#### Deploy storage service and API updates
+### Deploy storage service and API updates
 
 ```shell
 amplify push --y
 ```
 
-#### Update the React app
+### Update the React app
 
 Add code to use storage.
 
-### Deleing the resources
+## Deleing the resources
 
-#### Removing individual services
+### Removing individual services
 
 ```shell
 amplify remove auth
@@ -257,7 +250,7 @@ Then push.
 amplify push
 ```
 
-#### Deleing the entire project
+### Deleing the entire project
 
 To delete the project and the associated resources.
 
