@@ -7,6 +7,8 @@ import {
   deleteNote as deleteNoteMutation,
 } from "./graphql/mutations";
 import { API, Storage } from "aws-amplify";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
 const initialFormState = { name: "", description: "" };
 
@@ -61,7 +63,7 @@ function App() {
   return (
     <div className="App">
       <h1>My Notes App</h1>
-      <input
+      {/* <input
         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
         placeholder="Note name"
         value={formData.name}
@@ -70,15 +72,33 @@ function App() {
         onChange={(e) => setFormData({ ...formData, description: e.target.value })}
         placeholder="Note description"
         value={formData.description}
+      /> */}
+      <TextField
+        label="Note name"
+        variant="outlined"
+        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+        value={formData.name}
+      />
+      <TextField
+        label="Note description"
+        variant="outlined"
+        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+        value={formData.description}
       />
       <input type="file" onChange={onChange} />
-      <button onClick={createNote}>Create Note</button>
+      {/* <button onClick={createNote}>Create Note</button> */}
+      <Button variant="contained" color="primary" onClick={createNote}>
+        Create Notes
+      </Button>
       <div style={{ marginBottom: 30 }}>
         {notes.map((note) => (
           <div key={note.id || note.name}>
             <h2>{note.name}</h2>
             <p>{note.description}</p>
-            <button onClick={() => deleteNote(note)}>Delete note</button>
+            {/* <button onClick={() => deleteNote(note)}>Delete note</button> */}
+            <Button variant="outlined" color="secondary" onClick={() => deleteNote(note)}>
+              Delete note
+            </Button>
             {note.image && <img src={note.image} style={{ width: 400 }} />}
           </div>
         ))}
